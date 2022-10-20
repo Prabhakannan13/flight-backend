@@ -25,15 +25,16 @@ public class FlightController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/viewflight")
-    private List<FlightModel>viewflight(){
+    public List<FlightModel>viewflight(){
 
         return (List<FlightModel>) dao.findAll();
     }
+
     @CrossOrigin(origins = "*")
     @Transactional
     @PostMapping(path = "/deleteflight",consumes = "application/json",produces = "application/json")
     public String deleteflight(@RequestBody FlightModel flight){
         dao.deleteFlightById(flight.getId());
-        return "{statur:'success'}";
+        return "{status:'success'}";
     }
 }
