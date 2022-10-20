@@ -2,10 +2,11 @@ package com.nestdigital.flightbackend.Controller;
 
 import com.nestdigital.flightbackend.Dao.FlightDao;
 import com.nestdigital.flightbackend.Model.FlightModel;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Table;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,14 @@ public class FlightController {
     @CrossOrigin(origins = "*")
     @GetMapping("/viewflight")
     private List<FlightModel>viewflight(){
+
         return (List<FlightModel>) dao.findAll();
+    }
+    @CrossOrigin(origins = "*")
+    @Transactional
+    @PostMapping(path = "/deleteflight",consumes = "application/json",produces = "application/json")
+    public String deleteflight(@RequestBody FlightModel flight){
+        dao.deleteFlightById(flight.getId());
+        return "{statur:'success'}";
     }
 }
